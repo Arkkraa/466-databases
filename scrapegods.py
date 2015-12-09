@@ -12,33 +12,30 @@ def scrape():
 
 	for href in raw_html:
 		if "deity" in str(href) and "deity-of-the-day" not in str(href):
-			deityPage = requests.get(str(href))
-			deityTree = html.fromstring(deityPage.content)
-			deityBox = deityTree.xpath("//div[@id='pant-vitalsbox']/p")
-			deity = deityTree.xpath("//h1[@class='']")
+			deity_page = requests.get(str(href))
+			deity_tree = html.fromstring(deity_page.content)
+			deity_box = deity_tree.xpath("//div[@id='pant-vitalsbox']/p")
+			deity = deity_tree.xpath("//h1[@class='']")
 			deity = re.findall(r'[A-Z]\w+', html.tostring(deity[0]))[0]
 
-			for p in deityBox:
+			for p in deity_box:
 				yo = re.findall(r"[A-Z]\w+", html.tostring(p))
 				try:
 					if "Father" in html.tostring(p):
-						fatherIdx = yo.index("Father")
-						father = yo[fatherIdx + 1]
-						gods.append((deity,father))
-						gods.append((father,deity))
+						father = yo[yo.index("Father") + 1]
+						gods.append((deity, father))
+						gods.append((father, deity))
 					if "Mother" in html.tostring(p):
 						mother = yo[yo.index("Mother") + 1]
-						gods.append((deity,mother))
-						gods.append((mother,deity))
+						gods.append((deity, mother))
+						gods.append((mother, deity))
 					if "Consort" in  html.tostring(p):
 						consort = yo[yo.index("Consort") + 1]
-						gods.append((deity,consort))
-						gods.append((consort,deity))
-					if "Member" in html.tostring(p):
-						member = yo[yo.index("Member") + 1]
-						gods.append((deity,member))
-						gods.append((member,deity))
+						gods.append((deity, consort))
+						gods.append((consort, deity))
 				except IndexError:
+					# this happens when the string mother father or consort 
+					# is in some other piece of text within this block of html
 					print "oops"
 
 	return gods
@@ -54,7 +51,6 @@ def format_csv(gods):
 
 if __name__ == '__main__':
 	gods = scrape()
-	print gods
 	#sys.argv
 
 	format_csv(gods)
