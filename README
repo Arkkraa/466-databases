@@ -1,0 +1,14 @@
+Greek Gods
+-----------
+
+Installation Instructions:
+sudo pip install lxml
+sudo pip install requests
+
+To Run:
+python scrapegods.py
+python pagerank.py greekgods.csv
+python pagerank.py othergods.csv
+
+
+
