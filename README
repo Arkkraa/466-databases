@@ -1,3 +1,7 @@
+Jorge Guevara
+Arkadiy Kraminsky
+
+
 Greek Gods
 -----------
 
@@ -8,7 +12,7 @@ sudo pip install requests
 To Run:
 python scrapegods.py
 python pagerank.py greekgods.csv
-python pagerank.py othergods.csv
+python pagerank.py handmade.csv
 
 
 
