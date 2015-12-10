@@ -3,6 +3,15 @@ import requests
 import re
 import sys
 
+def format_csv(gods):
+
+	gods_csv = open('greekgods.csv', 'w')
+
+	for g1, g2 in gods:
+		gods_csv.write("\"" + str(g1) + "\"" + ',0,' + "\"" + str(g2) + "\"" +',0\n')
+
+	gods_csv.close()
+
 def scrape():
 	page = requests.get('http://www.godchecker.com/pantheon/greek-mythology.php?list-gods-names')
 	tree = html.fromstring(page.content)
@@ -39,15 +48,6 @@ def scrape():
 					print "oops"
 
 	return gods
-
-def format_csv(gods):
-
-	gods_csv = open('greekgods.csv', 'w')
-
-	for g1, g2 in gods:
-		gods_csv.write("\"" + str(g1) + "\"" + ',0,' + "\"" + str(g2) + "\"" +',0\n')
-
-	gods_csv.close()
 
 if __name__ == '__main__':
 	gods = scrape()
